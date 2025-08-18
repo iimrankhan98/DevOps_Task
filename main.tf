@@ -152,7 +152,7 @@ resource "aws_db_instance" "app_db" {
   allocated_storage    = 20
   engine               = "mysql"
   instance_class       = "db.t2.micro"
-  name                 = "appdb"
+  db_name              = "appdb"
   username             = "admin"
   password             = random_password.db.result
   skip_final_snapshot  = true
