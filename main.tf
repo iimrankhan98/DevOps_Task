@@ -149,14 +149,14 @@ resource "aws_secretsmanager_secret_version" "db_secret_version" {
 }
 
 resource "aws_db_instance" "app_db" {
-  allocated_storage    = 20
-  engine               = "mysql"
-  engine_version       = "8.0.42"
-  instance_class       = "db.m7g.large"
-  db_name              = "appdb"
-  username             = "admin"
-  password             = random_password.db.result
-  skip_final_snapshot  = true
+  allocated_storage     = 20
+  engine                = "mysql"
+  engine_version        = "8.0.42"
+  instance_class        = "db.m7g.large"
+  db_name               = "appdb"
+  username              = "admin"
+  password              = random_password.db.result
+  skip_final_snapshot   = true
   vpc_security_group_ids = [aws_security_group.app_sg.id]
   db_subnet_group_name   = aws_db_subnet_group.db_subnets.name
 }
@@ -166,22 +166,36 @@ resource "aws_db_subnet_group" "db_subnets" {
   subnet_ids = aws_subnet.public[*].id
 }
 
-# CloudFront
+# ✅ Fixed CloudFront with ALB origin
 resource "aws_cloudfront_distribution" "alb_cdn" {
+  enabled             = true
+  default_root_object = ""
+
   origin {
     domain_name = aws_lb.app_alb.dns_name
     origin_id   = "alb-origin"
+
+    custom_origin_config {
+      http_port              = 80
+      https_port             = 443
+      origin_protocol_policy = "http-only" # use "https-only" if ALB has TLS
+      origin_ssl_protocols   = ["TLSv1.2"]
+    }
   }
 
-  enabled             = true
-  default_root_object = "index.html"
-
   default_cache_behavior {
-    allowed_methods  = ["GET", "HEAD"]
-    cached_methods   = ["GET", "HEAD"]
-    target_origin_id = "alb-origin"
-
+    target_origin_id       = "alb-origin"
     viewer_protocol_policy = "redirect-to-https"
+
+    allowed_methods = ["GET", "HEAD", "OPTIONS", "PUT", "POST", "PATCH", "DELETE"]
+    cached_methods  = ["GET", "HEAD"]
+
+    forwarded_values {
+      query_string = true
+      cookies {
+        forward = "all"
+      }
+    }
   }
 
   restrictions {
@@ -192,5 +206,9 @@ resource "aws_cloudfront_distribution" "alb_cdn" {
 
   viewer_certificate {
     cloudfront_default_certificate = true
+  }
+
+  tags = {
+    Name = "alb-cdn"
   }
 }
