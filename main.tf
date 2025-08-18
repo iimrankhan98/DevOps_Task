@@ -69,9 +69,32 @@ resource "aws_launch_template" "app" {
   user_data     = base64encode(<<-EOF
               #!/bin/bash
               apt-get update -y
-              apt-get install -y apache2 php libapache2-mod-php
+              apt-get install -y apache2 php libapache2-mod-php php-mysql awscli jq
               systemctl enable apache2
               systemctl start apache2
+
+              # Create PHP file
+              cat << 'PHP' > /var/www/html/index.php
+              <?php
+              // Fetch DB credentials from Secrets Manager
+              $secret = shell_exec("aws secretsmanager get-secret-value --secret-id db-credentials --query SecretString --output text --region us-east-1");
+              $creds = json_decode($secret, true);
+
+              $servername = "${aws_db_instance.app_db.address}";
+              $username = $creds['username'];
+              $password = $creds['password'];
+              $dbname = "appdb";
+
+              // Create connection
+              $conn = new mysqli($servername, $username, $password, $dbname);
+
+              if ($conn->connect_error) {
+                  die("Connection failed: " . $conn->connect_error);
+              }
+              echo "<h1>✅ PHP App is running via Terraform on AWS</h1>";
+              echo "<p>Connected successfully to MySQL RDS at: $servername</p>";
+              ?>
+              PHP
           EOF
   )
   vpc_security_group_ids = [aws_security_group.app_sg.id]
