@@ -134,18 +134,22 @@ It includes networking, compute, database, security, load balancing, and CDN res
    ```bash
    terraform init
    ```
-
 2. Preview the changes
+   ```bash
+   terraform validate
+   ```
+
+3. Preview the changes
    ```bash
    terraform plan
    ```
 
-3. Apply the configuration
+4. Apply the configuration
    ```bash
    terraform apply -auto-approve
    ```
 
-4. Destroy resources when not needed
+5. Destroy resources when not needed
    ```bash
    terraform destroy -auto-approve
    ```
