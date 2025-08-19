@@ -136,6 +136,7 @@ resource "aws_autoscaling_group" "app_asg" {
 resource "random_password" "db" {
   length  = 16
   special = true
+  override_special = "!#$%^&*()-_=+[]{};:,.<>?" # exclude / @ " space
 }
 
 resource "aws_kms_key" "db_key" {
@@ -145,6 +146,10 @@ resource "aws_kms_key" "db_key" {
 resource "aws_secretsmanager_secret" "db_secret" {
   name       = "db-credentials"
   kms_key_id = aws_kms_key.db_key.arn
+}
+
+resource "random_id" "secret_suffix" {
+  byte_length = 4
 }
 
 resource "aws_secretsmanager_secret_version" "db_secret_version" {
