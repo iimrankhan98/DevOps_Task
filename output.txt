@@ -1,0 +1,741 @@
+[0m[1mdata.aws_availability_zones.available: Reading...[0m[0m
+[0m[1mdata.aws_ami.ubuntu: Reading...[0m[0m
+[0m[1mdata.aws_availability_zones.available: Read complete after 0s [id=ap-south-1][0m
+[0m[1mdata.aws_ami.ubuntu: Read complete after 0s [id=ami-06cc5ebfb8571a147][0m
+
+Terraform used the selected providers to generate the following execution
+plan. Resource actions are indicated with the following symbols:
+  [32m+[0m create[0m
+
+Terraform will perform the following actions:
+
+[1m  # aws_autoscaling_group.app_asg[0m will be created
+[0m  [32m+[0m[0m resource "aws_autoscaling_group" "app_asg" {
+      [32m+[0m[0m arn                              = (known after apply)
+      [32m+[0m[0m availability_zones               = (known after apply)
+      [32m+[0m[0m default_cooldown                 = (known after apply)
+      [32m+[0m[0m desired_capacity                 = 2
+      [32m+[0m[0m force_delete                     = false
+      [32m+[0m[0m force_delete_warm_pool           = false
+      [32m+[0m[0m health_check_grace_period        = 300
+      [32m+[0m[0m health_check_type                = (known after apply)
+      [32m+[0m[0m id                               = (known after apply)
+      [32m+[0m[0m ignore_failed_scaling_activities = false
+      [32m+[0m[0m load_balancers                   = (known after apply)
+      [32m+[0m[0m max_size                         = 3
+      [32m+[0m[0m metrics_granularity              = "1Minute"
+      [32m+[0m[0m min_size                         = 1
+      [32m+[0m[0m name                             = (known after apply)
+      [32m+[0m[0m name_prefix                      = (known after apply)
+      [32m+[0m[0m predicted_capacity               = (known after apply)
+      [32m+[0m[0m protect_from_scale_in            = false
+      [32m+[0m[0m region                           = "ap-south-1"
+      [32m+[0m[0m service_linked_role_arn          = (known after apply)
+      [32m+[0m[0m target_group_arns                = (known after apply)
+      [32m+[0m[0m vpc_zone_identifier              = (known after apply)
+      [32m+[0m[0m wait_for_capacity_timeout        = "10m"
+      [32m+[0m[0m warm_pool_size                   = (known after apply)
+
+      [32m+[0m[0m availability_zone_distribution (known after apply)
+
+      [32m+[0m[0m capacity_reservation_specification (known after apply)
+
+      [32m+[0m[0m launch_template {
+          [32m+[0m[0m id      = (known after apply)
+          [32m+[0m[0m name    = (known after apply)
+          [32m+[0m[0m version = "$Latest"
+        }
+
+      [32m+[0m[0m mixed_instances_policy (known after apply)
+
+      [32m+[0m[0m traffic_source (known after apply)
+    }
+
+[1m  # aws_cloudfront_distribution.alb_cdn[0m will be created
+[0m  [32m+[0m[0m resource "aws_cloudfront_distribution" "alb_cdn" {
+      [32m+[0m[0m arn                             = (known after apply)
+      [32m+[0m[0m caller_reference                = (known after apply)
+      [32m+[0m[0m continuous_deployment_policy_id = (known after apply)
+      [32m+[0m[0m domain_name                     = (known after apply)
+      [32m+[0m[0m enabled                         = true
+      [32m+[0m[0m etag                            = (known after apply)
+      [32m+[0m[0m hosted_zone_id                  = (known after apply)
+      [32m+[0m[0m http_version                    = "http2"
+      [32m+[0m[0m id                              = (known after apply)
+      [32m+[0m[0m in_progress_validation_batches  = (known after apply)
+      [32m+[0m[0m is_ipv6_enabled                 = false
+      [32m+[0m[0m last_modified_time              = (known after apply)
+      [32m+[0m[0m price_class                     = "PriceClass_All"
+      [32m+[0m[0m retain_on_delete                = false
+      [32m+[0m[0m staging                         = false
+      [32m+[0m[0m status                          = (known after apply)
+      [32m+[0m[0m tags                            = {
+          [32m+[0m[0m "Name" = "alb-cdn"
+        }
+      [32m+[0m[0m tags_all                        = {
+          [32m+[0m[0m "Name" = "alb-cdn"
+        }
+      [32m+[0m[0m trusted_key_groups              = (known after apply)
+      [32m+[0m[0m trusted_signers                 = (known after apply)
+      [32m+[0m[0m wait_for_deployment             = true
+        [90m# (1 unchanged attribute hidden)[0m[0m
+
+      [32m+[0m[0m default_cache_behavior {
+          [32m+[0m[0m allowed_methods        = [
+              [32m+[0m[0m "DELETE",
+              [32m+[0m[0m "GET",
+              [32m+[0m[0m "HEAD",
+              [32m+[0m[0m "OPTIONS",
+              [32m+[0m[0m "PATCH",
+              [32m+[0m[0m "POST",
+              [32m+[0m[0m "PUT",
+            ]
+          [32m+[0m[0m cached_methods         = [
+              [32m+[0m[0m "GET",
+              [32m+[0m[0m "HEAD",
+            ]
+          [32m+[0m[0m compress               = false
+          [32m+[0m[0m default_ttl            = (known after apply)
+          [32m+[0m[0m max_ttl                = (known after apply)
+          [32m+[0m[0m min_ttl                = 0
+          [32m+[0m[0m target_origin_id       = "alb-origin"
+          [32m+[0m[0m trusted_key_groups     = (known after apply)
+          [32m+[0m[0m trusted_signers        = (known after apply)
+          [32m+[0m[0m viewer_protocol_policy = "redirect-to-https"
+
+          [32m+[0m[0m forwarded_values {
+              [32m+[0m[0m headers                 = (known after apply)
+              [32m+[0m[0m query_string            = true
+              [32m+[0m[0m query_string_cache_keys = (known after apply)
+
+              [32m+[0m[0m cookies {
+                  [32m+[0m[0m forward           = "all"
+                  [32m+[0m[0m whitelisted_names = (known after apply)
+                }
+            }
+
+          [32m+[0m[0m grpc_config (known after apply)
+        }
+
+      [32m+[0m[0m origin {
+          [32m+[0m[0m connection_attempts      = 3
+          [32m+[0m[0m connection_timeout       = 10
+          [32m+[0m[0m domain_name              = (known after apply)
+          [32m+[0m[0m origin_id                = "alb-origin"
+            [90m# (2 unchanged attributes hidden)[0m[0m
+
+          [32m+[0m[0m custom_origin_config {
+              [32m+[0m[0m http_port                = 80
+              [32m+[0m[0m https_port               = 443
+              [32m+[0m[0m origin_keepalive_timeout = 5
+              [32m+[0m[0m origin_protocol_policy   = "http-only"
+              [32m+[0m[0m origin_read_timeout      = 30
+              [32m+[0m[0m origin_ssl_protocols     = [
+                  [32m+[0m[0m "TLSv1.2",
+                ]
+            }
+        }
+
+      [32m+[0m[0m restrictions {
+          [32m+[0m[0m geo_restriction {
+              [32m+[0m[0m locations        = (known after apply)
+              [32m+[0m[0m restriction_type = "none"
+            }
+        }
+
+      [32m+[0m[0m viewer_certificate {
+          [32m+[0m[0m cloudfront_default_certificate = true
+          [32m+[0m[0m minimum_protocol_version       = "TLSv1"
+        }
+    }
+
+[1m  # aws_db_instance.app_db[0m will be created
+[0m  [32m+[0m[0m resource "aws_db_instance" "app_db" {
+      [32m+[0m[0m address                               = (known after apply)
+      [32m+[0m[0m allocated_storage                     = 20
+      [32m+[0m[0m apply_immediately                     = false
+      [32m+[0m[0m arn                                   = (known after apply)
+      [32m+[0m[0m auto_minor_version_upgrade            = true
+      [32m+[0m[0m availability_zone                     = (known after apply)
+      [32m+[0m[0m backup_retention_period               = (known after apply)
+      [32m+[0m[0m backup_target                         = (known after apply)
+      [32m+[0m[0m backup_window                         = (known after apply)
+      [32m+[0m[0m ca_cert_identifier                    = (known after apply)
+      [32m+[0m[0m character_set_name                    = (known after apply)
+      [32m+[0m[0m copy_tags_to_snapshot                 = false
+      [32m+[0m[0m database_insights_mode                = (known after apply)
+      [32m+[0m[0m db_name                               = "appdb"
+      [32m+[0m[0m db_subnet_group_name                  = "db-subnet-group"
+      [32m+[0m[0m dedicated_log_volume                  = false
+      [32m+[0m[0m delete_automated_backups              = true
+      [32m+[0m[0m domain_fqdn                           = (known after apply)
+      [32m+[0m[0m endpoint                              = (known after apply)
+      [32m+[0m[0m engine                                = "mysql"
+      [32m+[0m[0m engine_lifecycle_support              = (known after apply)
+      [32m+[0m[0m engine_version                        = "8.0.42"
+      [32m+[0m[0m engine_version_actual                 = (known after apply)
+      [32m+[0m[0m hosted_zone_id                        = (known after apply)
+      [32m+[0m[0m id                                    = (known after apply)
+      [32m+[0m[0m identifier                            = (known after apply)
+      [32m+[0m[0m identifier_prefix                     = (known after apply)
+      [32m+[0m[0m instance_class                        = "db.m7g.large"
+      [32m+[0m[0m iops                                  = (known after apply)
+      [32m+[0m[0m kms_key_id                            = (known after apply)
+      [32m+[0m[0m latest_restorable_time                = (known after apply)
+      [32m+[0m[0m license_model                         = (known after apply)
+      [32m+[0m[0m listener_endpoint                     = (known after apply)
+      [32m+[0m[0m maintenance_window                    = (known after apply)
+      [32m+[0m[0m master_user_secret                    = (known after apply)
+      [32m+[0m[0m master_user_secret_kms_key_id         = (known after apply)
+      [32m+[0m[0m monitoring_interval                   = 0
+      [32m+[0m[0m monitoring_role_arn                   = (known after apply)
+      [32m+[0m[0m multi_az                              = (known after apply)
+      [32m+[0m[0m nchar_character_set_name              = (known after apply)
+      [32m+[0m[0m network_type                          = (known after apply)
+      [32m+[0m[0m option_group_name                     = (known after apply)
+      [32m+[0m[0m parameter_group_name                  = (known after apply)
+      [32m+[0m[0m password                              = (sensitive value)
+      [32m+[0m[0m password_wo                           = (write-only attribute)
+      [32m+[0m[0m performance_insights_enabled          = false
+      [32m+[0m[0m performance_insights_kms_key_id       = (known after apply)
+      [32m+[0m[0m performance_insights_retention_period = (known after apply)
+      [32m+[0m[0m port                                  = (known after apply)
+      [32m+[0m[0m publicly_accessible                   = false
+      [32m+[0m[0m region                                = "ap-south-1"
+      [32m+[0m[0m replica_mode                          = (known after apply)
+      [32m+[0m[0m replicas                              = (known after apply)
+      [32m+[0m[0m resource_id                           = (known after apply)
+      [32m+[0m[0m skip_final_snapshot                   = true
+      [32m+[0m[0m snapshot_identifier                   = (known after apply)
+      [32m+[0m[0m status                                = (known after apply)
+      [32m+[0m[0m storage_throughput                    = (known after apply)
+      [32m+[0m[0m storage_type                          = (known after apply)
+      [32m+[0m[0m tags_all                              = (known after apply)
+      [32m+[0m[0m timezone                              = (known after apply)
+      [32m+[0m[0m username                              = "admin"
+      [32m+[0m[0m vpc_security_group_ids                = (known after apply)
+    }
+
+[1m  # aws_db_subnet_group.db_subnets[0m will be created
+[0m  [32m+[0m[0m resource "aws_db_subnet_group" "db_subnets" {
+      [32m+[0m[0m arn                     = (known after apply)
+      [32m+[0m[0m description             = "Managed by Terraform"
+      [32m+[0m[0m id                      = (known after apply)
+      [32m+[0m[0m name                    = "db-subnet-group"
+      [32m+[0m[0m name_prefix             = (known after apply)
+      [32m+[0m[0m region                  = "ap-south-1"
+      [32m+[0m[0m subnet_ids              = (known after apply)
+      [32m+[0m[0m supported_network_types = (known after apply)
+      [32m+[0m[0m tags_all                = (known after apply)
+      [32m+[0m[0m vpc_id                  = (known after apply)
+    }
+
+[1m  # aws_internet_gateway.igw[0m will be created
+[0m  [32m+[0m[0m resource "aws_internet_gateway" "igw" {
+      [32m+[0m[0m arn      = (known after apply)
+      [32m+[0m[0m id       = (known after apply)
+      [32m+[0m[0m owner_id = (known after apply)
+      [32m+[0m[0m region   = "ap-south-1"
+      [32m+[0m[0m tags_all = (known after apply)
+      [32m+[0m[0m vpc_id   = (known after apply)
+    }
+
+[1m  # aws_kms_key.db_key[0m will be created
+[0m  [32m+[0m[0m resource "aws_kms_key" "db_key" {
+      [32m+[0m[0m arn                                = (known after apply)
+      [32m+[0m[0m bypass_policy_lockout_safety_check = false
+      [32m+[0m[0m customer_master_key_spec           = "SYMMETRIC_DEFAULT"
+      [32m+[0m[0m description                        = "KMS key for RDS secrets"
+      [32m+[0m[0m enable_key_rotation                = false
+      [32m+[0m[0m id                                 = (known after apply)
+      [32m+[0m[0m is_enabled                         = true
+      [32m+[0m[0m key_id                             = (known after apply)
+      [32m+[0m[0m key_usage                          = "ENCRYPT_DECRYPT"
+      [32m+[0m[0m multi_region                       = (known after apply)
+      [32m+[0m[0m policy                             = (known after apply)
+      [32m+[0m[0m region                             = "ap-south-1"
+      [32m+[0m[0m rotation_period_in_days            = (known after apply)
+      [32m+[0m[0m tags_all                           = (known after apply)
+    }
+
+[1m  # aws_launch_template.app[0m will be created
+[0m  [32m+[0m[0m resource "aws_launch_template" "app" {
+      [32m+[0m[0m arn                    = (known after apply)
+      [32m+[0m[0m default_version        = (known after apply)
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m image_id               = "ami-06cc5ebfb8571a147"
+      [32m+[0m[0m instance_type          = "t2.micro"
+      [32m+[0m[0m latest_version         = (known after apply)
+      [32m+[0m[0m name                   = (known after apply)
+      [32m+[0m[0m name_prefix            = "app-template-"
+      [32m+[0m[0m region                 = "ap-south-1"
+      [32m+[0m[0m tags_all               = (known after apply)
+      [32m+[0m[0m user_data              = "IyEvYmluL2Jhc2gKYXB0LWdldCB1cGRhdGUgLXkKYXB0LWdldCBpbnN0YWxsIC15IGFwYWNoZTIgcGhwIGxpYmFwYWNoZTItbW9kLXBocApzeXN0ZW1jdGwgZW5hYmxlIGFwYWNoZTIKc3lzdGVtY3RsIHN0YXJ0IGFwYWNoZTIKICAgICAgICAgICAgICAKIyBSZXBsYWNlIGRlZmF1bHQgQXBhY2hlIGluZGV4IHBhZ2Ugd2l0aCBQSFAgImhlbGxvIHdvcmQiCmVjaG8gIjw/cGhwIGVjaG8gJ2hlbGxvIHdvcmQnOyA/PiIgPiAvdmFyL3d3dy9odG1sL2luZGV4LnBocApybSAtZiAvdmFyL3d3dy9odG1sL2luZGV4Lmh0bWwK"
+      [32m+[0m[0m vpc_security_group_ids = (known after apply)
+
+      [32m+[0m[0m metadata_options (known after apply)
+    }
+
+[1m  # aws_lb.app_alb[0m will be created
+[0m  [32m+[0m[0m resource "aws_lb" "app_alb" {
+      [32m+[0m[0m arn                                                          = (known after apply)
+      [32m+[0m[0m arn_suffix                                                   = (known after apply)
+      [32m+[0m[0m client_keep_alive                                            = 3600
+      [32m+[0m[0m desync_mitigation_mode                                       = "defensive"
+      [32m+[0m[0m dns_name                                                     = (known after apply)
+      [32m+[0m[0m drop_invalid_header_fields                                   = false
+      [32m+[0m[0m enable_deletion_protection                                   = false
+      [32m+[0m[0m enable_http2                                                 = true
+      [32m+[0m[0m enable_tls_version_and_cipher_suite_headers                  = false
+      [32m+[0m[0m enable_waf_fail_open                                         = false
+      [32m+[0m[0m enable_xff_client_port                                       = false
+      [32m+[0m[0m enable_zonal_shift                                           = false
+      [32m+[0m[0m enforce_security_group_inbound_rules_on_private_link_traffic = (known after apply)
+      [32m+[0m[0m id                                                           = (known after apply)
+      [32m+[0m[0m idle_timeout                                                 = 60
+      [32m+[0m[0m internal                                                     = false
+      [32m+[0m[0m ip_address_type                                              = (known after apply)
+      [32m+[0m[0m load_balancer_type                                           = "application"
+      [32m+[0m[0m name                                                         = "app-alb"
+      [32m+[0m[0m name_prefix                                                  = (known after apply)
+      [32m+[0m[0m preserve_host_header                                         = false
+      [32m+[0m[0m region                                                       = "ap-south-1"
+      [32m+[0m[0m security_groups                                              = (known after apply)
+      [32m+[0m[0m subnets                                                      = (known after apply)
+      [32m+[0m[0m tags_all                                                     = (known after apply)
+      [32m+[0m[0m vpc_id                                                       = (known after apply)
+      [32m+[0m[0m xff_header_processing_mode                                   = "append"
+      [32m+[0m[0m zone_id                                                      = (known after apply)
+
+      [32m+[0m[0m subnet_mapping (known after apply)
+    }
+
+[1m  # aws_lb_listener.app_listener[0m will be created
+[0m  [32m+[0m[0m resource "aws_lb_listener" "app_listener" {
+      [32m+[0m[0m arn                                                                   = (known after apply)
+      [32m+[0m[0m id                                                                    = (known after apply)
+      [32m+[0m[0m load_balancer_arn                                                     = (known after apply)
+      [32m+[0m[0m port                                                                  = 80
+      [32m+[0m[0m protocol                                                              = "HTTP"
+      [32m+[0m[0m region                                                                = "ap-south-1"
+      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_header_name               = (known after apply)
+      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_issuer_header_name        = (known after apply)
+      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_leaf_header_name          = (known after apply)
+      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_serial_number_header_name = (known after apply)
+      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_subject_header_name       = (known after apply)
+      [32m+[0m[0m routing_http_request_x_amzn_mtls_clientcert_validity_header_name      = (known after apply)
+      [32m+[0m[0m routing_http_request_x_amzn_tls_cipher_suite_header_name              = (known after apply)
+      [32m+[0m[0m routing_http_request_x_amzn_tls_version_header_name                   = (known after apply)
+      [32m+[0m[0m routing_http_response_access_control_allow_credentials_header_value   = (known after apply)
+      [32m+[0m[0m routing_http_response_access_control_allow_headers_header_value       = (known after apply)
+      [32m+[0m[0m routing_http_response_access_control_allow_methods_header_value       = (known after apply)
+      [32m+[0m[0m routing_http_response_access_control_allow_origin_header_value        = (known after apply)
+      [32m+[0m[0m routing_http_response_access_control_expose_headers_header_value      = (known after apply)
+      [32m+[0m[0m routing_http_response_access_control_max_age_header_value             = (known after apply)
+      [32m+[0m[0m routing_http_response_content_security_policy_header_value            = (known after apply)
+      [32m+[0m[0m routing_http_response_server_enabled                                  = (known after apply)
+      [32m+[0m[0m routing_http_response_strict_transport_security_header_value          = (known after apply)
+      [32m+[0m[0m routing_http_response_x_content_type_options_header_value             = (known after apply)
+      [32m+[0m[0m routing_http_response_x_frame_options_header_value                    = (known after apply)
+      [32m+[0m[0m ssl_policy                                                            = (known after apply)
+      [32m+[0m[0m tags_all                                                              = (known after apply)
+      [32m+[0m[0m tcp_idle_timeout_seconds                                              = (known after apply)
+
+      [32m+[0m[0m default_action {
+          [32m+[0m[0m order            = (known after apply)
+          [32m+[0m[0m target_group_arn = (known after apply)
+          [32m+[0m[0m type             = "forward"
+        }
+
+      [32m+[0m[0m mutual_authentication (known after apply)
+    }
+
+[1m  # aws_lb_target_group.app_tg[0m will be created
+[0m  [32m+[0m[0m resource "aws_lb_target_group" "app_tg" {
+      [32m+[0m[0m arn                                = (known after apply)
+      [32m+[0m[0m arn_suffix                         = (known after apply)
+      [32m+[0m[0m connection_termination             = (known after apply)
+      [32m+[0m[0m deregistration_delay               = "300"
+      [32m+[0m[0m id                                 = (known after apply)
+      [32m+[0m[0m ip_address_type                    = (known after apply)
+      [32m+[0m[0m lambda_multi_value_headers_enabled = false
+      [32m+[0m[0m load_balancer_arns                 = (known after apply)
+      [32m+[0m[0m load_balancing_algorithm_type      = (known after apply)
+      [32m+[0m[0m load_balancing_anomaly_mitigation  = (known after apply)
+      [32m+[0m[0m load_balancing_cross_zone_enabled  = (known after apply)
+      [32m+[0m[0m name                               = "app-tg"
+      [32m+[0m[0m name_prefix                        = (known after apply)
+      [32m+[0m[0m port                               = 80
+      [32m+[0m[0m preserve_client_ip                 = (known after apply)
+      [32m+[0m[0m protocol                           = "HTTP"
+      [32m+[0m[0m protocol_version                   = (known after apply)
+      [32m+[0m[0m proxy_protocol_v2                  = false
+      [32m+[0m[0m region                             = "ap-south-1"
+      [32m+[0m[0m slow_start                         = 0
+      [32m+[0m[0m tags_all                           = (known after apply)
+      [32m+[0m[0m target_type                        = "instance"
+      [32m+[0m[0m vpc_id                             = (known after apply)
+
+      [32m+[0m[0m health_check (known after apply)
+
+      [32m+[0m[0m stickiness (known after apply)
+
+      [32m+[0m[0m target_failover (known after apply)
+
+      [32m+[0m[0m target_group_health (known after apply)
+
+      [32m+[0m[0m target_health_state (known after apply)
+    }
+
+[1m  # aws_route.public_internet[0m will be created
+[0m  [32m+[0m[0m resource "aws_route" "public_internet" {
+      [32m+[0m[0m destination_cidr_block = "0.0.0.0/0"
+      [32m+[0m[0m gateway_id             = (known after apply)
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m instance_id            = (known after apply)
+      [32m+[0m[0m instance_owner_id      = (known after apply)
+      [32m+[0m[0m network_interface_id   = (known after apply)
+      [32m+[0m[0m origin                 = (known after apply)
+      [32m+[0m[0m region                 = "ap-south-1"
+      [32m+[0m[0m route_table_id         = (known after apply)
+      [32m+[0m[0m state                  = (known after apply)
+    }
+
+[1m  # aws_route_table.public[0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table" "public" {
+      [32m+[0m[0m arn              = (known after apply)
+      [32m+[0m[0m id               = (known after apply)
+      [32m+[0m[0m owner_id         = (known after apply)
+      [32m+[0m[0m propagating_vgws = (known after apply)
+      [32m+[0m[0m region           = "ap-south-1"
+      [32m+[0m[0m route            = (known after apply)
+      [32m+[0m[0m tags_all         = (known after apply)
+      [32m+[0m[0m vpc_id           = (known after apply)
+    }
+
+[1m  # aws_route_table_association.public[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "public" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m region         = "ap-south-1"
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # aws_route_table_association.public[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_route_table_association" "public" {
+      [32m+[0m[0m id             = (known after apply)
+      [32m+[0m[0m region         = "ap-south-1"
+      [32m+[0m[0m route_table_id = (known after apply)
+      [32m+[0m[0m subnet_id      = (known after apply)
+    }
+
+[1m  # aws_secretsmanager_secret.db_secret[0m will be created
+[0m  [32m+[0m[0m resource "aws_secretsmanager_secret" "db_secret" {
+      [32m+[0m[0m arn                            = (known after apply)
+      [32m+[0m[0m force_overwrite_replica_secret = false
+      [32m+[0m[0m id                             = (known after apply)
+      [32m+[0m[0m kms_key_id                     = (known after apply)
+      [32m+[0m[0m name                           = "db-credentials"
+      [32m+[0m[0m name_prefix                    = (known after apply)
+      [32m+[0m[0m policy                         = (known after apply)
+      [32m+[0m[0m recovery_window_in_days        = 30
+      [32m+[0m[0m region                         = "ap-south-1"
+      [32m+[0m[0m tags_all                       = (known after apply)
+
+      [32m+[0m[0m replica (known after apply)
+    }
+
+[1m  # aws_secretsmanager_secret_version.db_secret_version[0m will be created
+[0m  [32m+[0m[0m resource "aws_secretsmanager_secret_version" "db_secret_version" {
+      [32m+[0m[0m arn                  = (known after apply)
+      [32m+[0m[0m has_secret_string_wo = (known after apply)
+      [32m+[0m[0m id                   = (known after apply)
+      [32m+[0m[0m region               = "ap-south-1"
+      [32m+[0m[0m secret_id            = (known after apply)
+      [32m+[0m[0m secret_string        = (sensitive value)
+      [32m+[0m[0m secret_string_wo     = (write-only attribute)
+      [32m+[0m[0m version_id           = (known after apply)
+      [32m+[0m[0m version_stages       = (known after apply)
+    }
+
+[1m  # aws_security_group.app_sg[0m will be created
+[0m  [32m+[0m[0m resource "aws_security_group" "app_sg" {
+      [32m+[0m[0m arn                    = (known after apply)
+      [32m+[0m[0m description            = "Managed by Terraform"
+      [32m+[0m[0m egress                 = [
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = [
+                  [32m+[0m[0m "0.0.0.0/0",
+                ]
+              [32m+[0m[0m from_port        = 0
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "-1"
+              [32m+[0m[0m security_groups  = []
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 0
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            },
+        ]
+      [32m+[0m[0m id                     = (known after apply)
+      [32m+[0m[0m ingress                = [
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = [
+                  [32m+[0m[0m "0.0.0.0/0",
+                ]
+              [32m+[0m[0m from_port        = 22
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "tcp"
+              [32m+[0m[0m security_groups  = []
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 22
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            },
+          [32m+[0m[0m {
+              [32m+[0m[0m cidr_blocks      = [
+                  [32m+[0m[0m "0.0.0.0/0",
+                ]
+              [32m+[0m[0m from_port        = 80
+              [32m+[0m[0m ipv6_cidr_blocks = []
+              [32m+[0m[0m prefix_list_ids  = []
+              [32m+[0m[0m protocol         = "tcp"
+              [32m+[0m[0m security_groups  = []
+              [32m+[0m[0m self             = false
+              [32m+[0m[0m to_port          = 80
+                [90m# (1 unchanged attribute hidden)[0m[0m
+            },
+        ]
+      [32m+[0m[0m name                   = (known after apply)
+      [32m+[0m[0m name_prefix            = (known after apply)
+      [32m+[0m[0m owner_id               = (known after apply)
+      [32m+[0m[0m region                 = "ap-south-1"
+      [32m+[0m[0m revoke_rules_on_delete = false
+      [32m+[0m[0m tags_all               = (known after apply)
+      [32m+[0m[0m vpc_id                 = (known after apply)
+    }
+
+[1m  # aws_subnet.public[0][0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "public" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "ap-south-1a"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.0.0.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = true
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m region                                         = "ap-south-1"
+      [32m+[0m[0m tags_all                                       = (known after apply)
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # aws_subnet.public[1][0m will be created
+[0m  [32m+[0m[0m resource "aws_subnet" "public" {
+      [32m+[0m[0m arn                                            = (known after apply)
+      [32m+[0m[0m assign_ipv6_address_on_creation                = false
+      [32m+[0m[0m availability_zone                              = "ap-south-1b"
+      [32m+[0m[0m availability_zone_id                           = (known after apply)
+      [32m+[0m[0m cidr_block                                     = "10.0.1.0/24"
+      [32m+[0m[0m enable_dns64                                   = false
+      [32m+[0m[0m enable_resource_name_dns_a_record_on_launch    = false
+      [32m+[0m[0m enable_resource_name_dns_aaaa_record_on_launch = false
+      [32m+[0m[0m id                                             = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_association_id                 = (known after apply)
+      [32m+[0m[0m ipv6_native                                    = false
+      [32m+[0m[0m map_public_ip_on_launch                        = true
+      [32m+[0m[0m owner_id                                       = (known after apply)
+      [32m+[0m[0m private_dns_hostname_type_on_launch            = (known after apply)
+      [32m+[0m[0m region                                         = "ap-south-1"
+      [32m+[0m[0m tags_all                                       = (known after apply)
+      [32m+[0m[0m vpc_id                                         = (known after apply)
+    }
+
+[1m  # aws_vpc.main[0m will be created
+[0m  [32m+[0m[0m resource "aws_vpc" "main" {
+      [32m+[0m[0m arn                                  = (known after apply)
+      [32m+[0m[0m cidr_block                           = "10.0.0.0/16"
+      [32m+[0m[0m default_network_acl_id               = (known after apply)
+      [32m+[0m[0m default_route_table_id               = (known after apply)
+      [32m+[0m[0m default_security_group_id            = (known after apply)
+      [32m+[0m[0m dhcp_options_id                      = (known after apply)
+      [32m+[0m[0m enable_dns_hostnames                 = (known after apply)
+      [32m+[0m[0m enable_dns_support                   = true
+      [32m+[0m[0m enable_network_address_usage_metrics = (known after apply)
+      [32m+[0m[0m id                                   = (known after apply)
+      [32m+[0m[0m instance_tenancy                     = "default"
+      [32m+[0m[0m ipv6_association_id                  = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block                      = (known after apply)
+      [32m+[0m[0m ipv6_cidr_block_network_border_group = (known after apply)
+      [32m+[0m[0m main_route_table_id                  = (known after apply)
+      [32m+[0m[0m owner_id                             = (known after apply)
+      [32m+[0m[0m region                               = "ap-south-1"
+      [32m+[0m[0m tags_all                             = (known after apply)
+    }
+
+[1m  # random_id.secret_suffix[0m will be created
+[0m  [32m+[0m[0m resource "random_id" "secret_suffix" {
+      [32m+[0m[0m b64_std     = (known after apply)
+      [32m+[0m[0m b64_url     = (known after apply)
+      [32m+[0m[0m byte_length = 4
+      [32m+[0m[0m dec         = (known after apply)
+      [32m+[0m[0m hex         = (known after apply)
+      [32m+[0m[0m id          = (known after apply)
+    }
+
+[1m  # random_password.db[0m will be created
+[0m  [32m+[0m[0m resource "random_password" "db" {
+      [32m+[0m[0m bcrypt_hash      = (sensitive value)
+      [32m+[0m[0m id               = (known after apply)
+      [32m+[0m[0m length           = 16
+      [32m+[0m[0m lower            = true
+      [32m+[0m[0m min_lower        = 0
+      [32m+[0m[0m min_numeric      = 0
+      [32m+[0m[0m min_special      = 0
+      [32m+[0m[0m min_upper        = 0
+      [32m+[0m[0m number           = true
+      [32m+[0m[0m numeric          = true
+      [32m+[0m[0m override_special = "!#$%^&*()-_=+[]{};:,.<>?"
+      [32m+[0m[0m result           = (sensitive value)
+      [32m+[0m[0m special          = true
+      [32m+[0m[0m upper            = true
+    }
+
+[1mPlan:[0m 22 to add, 0 to change, 0 to destroy.
+[0m
+Changes to Outputs:
+  [32m+[0m[0m alb_dns_name           = (known after apply)
+  [32m+[0m[0m cloudfront_domain_name = (known after apply)
+  [32m+[0m[0m db_secret_arn          = (known after apply)
+  [32m+[0m[0m kms_key_id             = (known after apply)
+  [32m+[0m[0m rds_endpoint           = (known after apply)
+[0m[1mrandom_id.secret_suffix: Creating...[0m[0m
+[0m[1mrandom_password.db: Creating...[0m[0m
+[0m[1mrandom_id.secret_suffix: Creation complete after 0s [id=YBvMiA][0m
+[0m[1mrandom_password.db: Creation complete after 1s [id=none][0m
+[0m[1maws_vpc.main: Creating...[0m[0m
+[0m[1maws_kms_key.db_key: Creating...[0m[0m
+[0m[1maws_kms_key.db_key: Creation complete after 0s [id=7e503685-5907-48c7-b508-bba19adefa95][0m
+[0m[1maws_secretsmanager_secret.db_secret: Creating...[0m[0m
+[0m[1maws_secretsmanager_secret.db_secret: Creation complete after 0s [id=arn:aws:secretsmanager:ap-south-1:154166281381:secret:db-credentials-vUaze3][0m
+[0m[1maws_secretsmanager_secret_version.db_secret_version: Creating...[0m[0m
+[0m[1maws_secretsmanager_secret_version.db_secret_version: Creation complete after 0s [id=arn:aws:secretsmanager:ap-south-1:154166281381:secret:db-credentials-vUaze3|terraform-20250819112741910200000002][0m
+[0m[1maws_vpc.main: Creation complete after 0s [id=vpc-0a28353051de3e045][0m
+[0m[1maws_subnet.public[1]: Creating...[0m[0m
+[0m[1maws_subnet.public[0]: Creating...[0m[0m
+[0m[1maws_route_table.public: Creating...[0m[0m
+[0m[1maws_lb_target_group.app_tg: Creating...[0m[0m
+[0m[1maws_internet_gateway.igw: Creating...[0m[0m
+[0m[1maws_security_group.app_sg: Creating...[0m[0m
+[0m[1maws_internet_gateway.igw: Creation complete after 0s [id=igw-04e499f2997ec43e5][0m
+[0m[1maws_route_table.public: Creation complete after 0s [id=rtb-088c82f7c5f9a31d3][0m
+[0m[1maws_route.public_internet: Creating...[0m[0m
+[0m[1maws_lb_target_group.app_tg: Creation complete after 0s [id=arn:aws:elasticloadbalancing:ap-south-1:154166281381:targetgroup/app-tg/61edaa8b9c0dab99][0m
+[0m[1maws_route.public_internet: Creation complete after 0s [id=r-rtb-088c82f7c5f9a31d31080289494][0m
+[0m[1maws_security_group.app_sg: Creation complete after 2s [id=sg-086930262e6a2782a][0m
+[0m[1maws_launch_template.app: Creating...[0m[0m
+[0m[1maws_launch_template.app: Creation complete after 5s [id=lt-0cbb6bae76dca5829][0m
+[0m[1maws_subnet.public[1]: Still creating... [00m10s elapsed][0m[0m
+[0m[1maws_subnet.public[0]: Still creating... [00m10s elapsed][0m[0m
+[0m[1maws_subnet.public[0]: Creation complete after 10s [id=subnet-07e168319d2d95c76][0m
+[0m[1maws_subnet.public[1]: Creation complete after 10s [id=subnet-093eeb95e9aa1c299][0m
+[0m[1maws_route_table_association.public[1]: Creating...[0m[0m
+[0m[1maws_db_subnet_group.db_subnets: Creating...[0m[0m
+[0m[1maws_route_table_association.public[0]: Creating...[0m[0m
+[0m[1maws_lb.app_alb: Creating...[0m[0m
+[0m[1maws_autoscaling_group.app_asg: Creating...[0m[0m
+[0m[1maws_route_table_association.public[0]: Creation complete after 1s [id=rtbassoc-07349f66278996684][0m
+[0m[1maws_route_table_association.public[1]: Creation complete after 1s [id=rtbassoc-0358fe670c5094157][0m
+[0m[1maws_db_subnet_group.db_subnets: Creation complete after 1s [id=db-subnet-group][0m
+[0m[1maws_db_instance.app_db: Creating...[0m[0m
+[0m[1maws_lb.app_alb: Still creating... [00m10s elapsed][0m[0m
+[0m[1maws_autoscaling_group.app_asg: Still creating... [00m10s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [00m10s elapsed][0m[0m
+[0m[1maws_lb.app_alb: Still creating... [00m20s elapsed][0m[0m
+[0m[1maws_autoscaling_group.app_asg: Still creating... [00m20s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [00m20s elapsed][0m[0m
+[0m[1maws_lb.app_alb: Still creating... [00m30s elapsed][0m[0m
+[0m[1maws_autoscaling_group.app_asg: Still creating... [00m30s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [00m30s elapsed][0m[0m
+[0m[1maws_lb.app_alb: Still creating... [00m40s elapsed][0m[0m
+[0m[1maws_autoscaling_group.app_asg: Still creating... [00m40s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [00m40s elapsed][0m[0m
+[0m[1maws_autoscaling_group.app_asg: Creation complete after 46s [id=terraform-20250819112753313500000007][0m
+[0m[1maws_lb.app_alb: Still creating... [00m50s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [00m50s elapsed][0m[0m
+[0m[1maws_lb.app_alb: Still creating... [01m00s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [01m00s elapsed][0m[0m
+[0m[1maws_lb.app_alb: Still creating... [01m10s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [01m10s elapsed][0m[0m
+[0m[1maws_lb.app_alb: Still creating... [01m20s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [01m20s elapsed][0m[0m
+[0m[1maws_lb.app_alb: Still creating... [01m30s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [01m30s elapsed][0m[0m
+[0m[1maws_lb.app_alb: Still creating... [01m40s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [01m40s elapsed][0m[0m
+[0m[1maws_lb.app_alb: Still creating... [01m50s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [01m50s elapsed][0m[0m
+[0m[1maws_lb.app_alb: Still creating... [02m00s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [02m00s elapsed][0m[0m
+[0m[1maws_lb.app_alb: Still creating... [02m10s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [02m10s elapsed][0m[0m
+[0m[1maws_lb.app_alb: Still creating... [02m20s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [02m20s elapsed][0m[0m
+[0m[1maws_lb.app_alb: Still creating... [02m30s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [02m30s elapsed][0m[0m
+[0m[1maws_lb.app_alb: Still creating... [02m40s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [02m40s elapsed][0m[0m
+[0m[1maws_lb.app_alb: Still creating... [02m50s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [02m50s elapsed][0m[0m
+[0m[1maws_lb.app_alb: Still creating... [03m00s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [03m00s elapsed][0m[0m
+[0m[1maws_lb.app_alb: Still creating... [03m10s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [03m10s elapsed][0m[0m
+[0m[1maws_lb.app_alb: Still creating... [03m20s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [03m20s elapsed][0m[0m
+[0m[1maws_lb.app_alb: Creation complete after 3m22s [id=arn:aws:elasticloadbalancing:ap-south-1:154166281381:loadbalancer/app/app-alb/a4663274fee4500f][0m
+[0m[1maws_lb_listener.app_listener: Creating...[0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Creating...[0m[0m
+[0m[1maws_lb_listener.app_listener: Creation complete after 0s [id=arn:aws:elasticloadbalancing:ap-south-1:154166281381:listener/app/app-alb/a4663274fee4500f/5f3d6f3d8d100f1c][0m
+[0m[1maws_db_instance.app_db: Still creating... [03m30s elapsed][0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Still creating... [00m10s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [03m40s elapsed][0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Still creating... [00m20s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Still creating... [03m50s elapsed][0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Still creating... [00m30s elapsed][0m[0m
+[0m[1maws_db_instance.app_db: Creation complete after 3m54s [id=db-I2DXIA4P7HQC7G7QZE4ARH5MGM][0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Still creating... [00m40s elapsed][0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Still creating... [00m50s elapsed][0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Still creating... [01m00s elapsed][0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Still creating... [01m10s elapsed][0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Still creating... [01m20s elapsed][0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Still creating... [01m30s elapsed][0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Still creating... [01m40s elapsed][0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Still creating... [01m50s elapsed][0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Still creating... [02m00s elapsed][0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Still creating... [02m10s elapsed][0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Still creating... [02m20s elapsed][0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Still creating... [02m30s elapsed][0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Still creating... [02m40s elapsed][0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Still creating... [02m50s elapsed][0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Still creating... [03m00s elapsed][0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Still creating... [03m10s elapsed][0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Still creating... [03m20s elapsed][0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Still creating... [03m30s elapsed][0m[0m
+[0m[1maws_cloudfront_distribution.alb_cdn: Creation complete after 3m33s [id=E117UMBNS4U0SW][0m
+[0m[1m[32m
+Apply complete! Resources: 22 added, 0 changed, 0 destroyed.
+[0m[0m[1m[32m
+Outputs:
+
+[0malb_dns_name = "app-alb-1511406094.ap-south-1.elb.amazonaws.com"
+cloudfront_domain_name = "d2y3yv6dncn58a.cloudfront.net"
+db_secret_arn = "arn:aws:secretsmanager:ap-south-1:154166281381:secret:db-credentials-vUaze3"
+kms_key_id = "7e503685-5907-48c7-b508-bba19adefa95"
+rds_endpoint = "terraform-20250819112754167300000008.c5kacm0gi2zc.ap-south-1.rds.amazonaws.com"
