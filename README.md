@@ -147,6 +147,7 @@ It includes networking, compute, database, security, load balancing, and CDN res
 4. Apply the configuration
    ```bash
    terraform apply -auto-approve
+   terraform apply -auto-approve 2>&1 | tee output.txt
    ```
 
 5. Destroy resources when not needed
